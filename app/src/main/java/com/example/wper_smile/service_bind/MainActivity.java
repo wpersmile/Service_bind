@@ -10,10 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG="myMainActivityTag";
+    private static final String TAG="info";
     MyService myService=null;
 
     @Override
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,MyService.class);
                 bindService(intent,serviceConnection, Service.BIND_AUTO_CREATE);
+                Toast.makeText(MainActivity.this, "Start Service", Toast.LENGTH_SHORT).show();
+                Log.v(TAG,"Start Service");
             }
         });
 
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 unbindService(serviceConnection);
+                Toast.makeText(MainActivity.this, "Close Service", Toast.LENGTH_SHORT).show();
+                Log.v(TAG,"Close Service");
             }
         });
       usingBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(myService!=null){
                     Log.v(TAG,"Using Service:"+myService.add(1,2));
+                    Toast.makeText(MainActivity.this, "Using Service", Toast.LENGTH_SHORT).show();
                 }
             }
         });
